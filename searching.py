@@ -1,6 +1,8 @@
 import json
-
 from pathlib import Path
+from generators import dna_sequence, ordered_sequence
+import time
+
 
 
 # get current working directory path
@@ -21,7 +23,6 @@ def read_data(file_name, field):
             if key == field:
                 return value
         return None
-
 def linear_search(seq,wanted):
     search = {}
     positions = []
@@ -47,15 +48,28 @@ def binary_search(numbers,wanted_number):
         elif numbers[center] > wanted_number:
             right_bound = center -1
 
-test = binary_search([-51, -12, -3, -3, -1, 2, 8, 13, 14, 14, 14, 21, 22, 23, 24, 25, 48, 63, 64, 70, 72, 78, 90, 102, 120],2)
+def get_time():
+    sizes = [100, 500, 1000, 5000, 10000]
+    linear_times = []
+    binary_times = []
+    for size in sizes:
+        seq = dna_sequence(max_len = size)
+        numbers = ordered_sequence(max_len=size)
+        start_linear = time.perf_counter()
+        linear_search(seq,"A")
+        end_linear = time.perf_counter()
+        linear_duration = end_linear - start_linear
+    linear_times.append(linear_duration)
+    print(linear_duration)
+
+test = get_time()
 print(test)
+
 def main():
     sequence = read_data("sequential.json","dna_sequence")
     wanted_NK = linear_search(sequence,"A")
-
     numbers = read_data("sequential.json","ordered_numbers")
-    print()
-
+    wanted_number = binary_search(numbers,23)
     print(sequence)
     print(wanted_NK)
 
