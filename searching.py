@@ -19,10 +19,12 @@ def read_data(file_name, field):
             if key == field:
                 return value
         return None
-test = read_data("sequential.json","unordered_numbers")
-print(test)
+
+
+
 def main():
-    pass
+    sequential_data = read_data("sequential.json","unordered_numbers")
+    print(sequential_data)
 
 
 if __name__ == '__main__':
