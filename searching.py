@@ -1,6 +1,6 @@
 import json
+
 from pathlib import Path
-from traceback import walk_tb
 
 
 # get current working directory path
@@ -35,16 +35,28 @@ def linear_search(seq,wanted):
 
 
 def binary_search(numbers,wanted_number):
+    left_bound = 0
+    right_bound = len(numbers) -1
 
+    while left_bound <= right_bound:
+        center = (left_bound + right_bound) //2
+        if numbers[center] == wanted_number:
+            return center
+        elif numbers[center] < wanted_number:
+            left_bound = center +1
+        elif numbers[center] > wanted_number:
+            right_bound = center -1
 
-
+test = binary_search([-51, -12, -3, -3, -1, 2, 8, 13, 14, 14, 14, 21, 22, 23, 24, 25, 48, 63, 64, 70, 72, 78, 90, 102, 120],2)
+print(test)
 def main():
     sequence = read_data("sequential.json","dna_sequence")
     wanted_NK = linear_search(sequence,"A")
 
     numbers = read_data("sequential.json","ordered_numbers")
+    print()
 
-    print(sequential_data)
+    print(sequence)
     print(wanted_NK)
 
 
